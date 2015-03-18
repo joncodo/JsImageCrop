@@ -1,3 +1,17 @@
+# Welcome
+
+So this is my version of a slightly modified https://github.com/alexk111/ngImgCrop
+
+It also uses some things done by: https://github.com/alexk111/ngImgCrop
+
+to install this: ```bower install js-ng-img-crop```
+
+plunkr here without the aspect ratio part. http://jsfiddle.net/LLjkxjv3/4/ 
+
+However, this repo has the aspect ratio in it. I just don't have the time to make a new plunkr at the moment.
+
+Below is the old documentation. Most of it still applies.
+
 # ngImgCrop
 
 Simple Image Crop directive for AngularJS. Enables to crop a circle or a square out of an image.
