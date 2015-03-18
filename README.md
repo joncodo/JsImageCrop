@@ -12,6 +12,20 @@ However, this repo has the aspect ratio in it. I just don't have the time to mak
 
 Below is the old documentation. Most of it still applies.
 
+HTML
+```
+<div class="formRow image-crop-tool">
+        <div>Select an image file: <input type="file" id="fileInput" /></div>
+        <div class="cropArea">
+          <img-crop image="myImage" result-image="myCroppedImage" area-type="rectangle" area-min-size="10" area-coords="myAreaCoords"></img-crop>
+        </div>
+        <div>Cropped Image:</div>
+        <div class="cropped"><img ng-src="{{myCroppedImage}}" width="{{myAreaCoords.w}}" height="{{myAreaCoords.h}}"/></div>
+
+        <a ng-click="applyCrop()" class="powersmart-button crop-button">Apply Crop</a>
+      </div>
+```
+
 # ngImgCrop
 
 Simple Image Crop directive for AngularJS. Enables to crop a circle or a square out of an image.
