@@ -995,20 +995,23 @@
                 temp_canvas = angular.element('<canvas></canvas>')[0];
                 temp_ctx = temp_canvas.getContext('2d');
                 var ris = this.getResultImageSize();
-                var adjusted_width = image.width *theArea.getSize().w/ctx.canvas.width;
-                var adjusted_height =  image.height*theArea.getSize().h/ctx.canvas.height;
-                temp_canvas.width =  adjusted_width;
-                temp_canvas.height = adjusted_height;
-                var center = theArea.getCenterPoint();
-                var retObj = {
-                    dataURI: null,
-                    imageData: null
-                };
-                if (image !== null) {
+                // TODO: pull request
+                if (image != null) {
+                    var adjusted_width = image.width *theArea.getSize().w/ctx.canvas.width;
+                    var adjusted_height =  image.height*theArea.getSize().h/ctx.canvas.height;
+                    temp_canvas.width =  adjusted_width;
+                    temp_canvas.height = adjusted_height;
+                    var center = theArea.getCenterPoint();
+                    var retObj = {
+                        dataURI: null,
+                        imageData: null
+                    };
 
-                    console.log(temp_canvas);
-                    console.log(ris);
-                    console.log(theArea.getSize());
+
+                    //console.log(temp_canvas);
+                    //console.log(ris);
+                    //console.log(theArea.getSize());
+                    retObj.size = theArea.getSize();
                     temp_ctx.drawImage(image,
                         (center.x - theArea.getSize().w / 2) * (image.width / ctx.canvas.width),
                         (center.y - theArea.getSize().h / 2) * (image.height / ctx.canvas.height),
@@ -1279,29 +1282,32 @@
 
                 var updateResultImage = function (scope) {
                     var resultImageObj = cropHost.getResultImage();
-                    var resultImage = resultImageObj.dataURI;
-                    if (storedResultImage !== resultImage) {
-                        storedResultImage = resultImage;
-                        if (angular.isDefined(scope.resultImage)) {
-                            scope.resultImage = resultImage;
-                        }
-                        if (angular.isDefined(scope.resultImageData)) {
-                            scope.resultImageData = resultImageObj.imageData;
-                        }
+                    if (resultImageObj) {
+                        var resultImage = resultImageObj.dataURI;
+                        if (storedResultImage !== resultImage) {
+                            storedResultImage = resultImage;
+                            if (angular.isDefined(scope.resultImage)) {
+                                scope.resultImage = resultImage;
+                            }
+                            if (angular.isDefined(scope.resultImageData)) {
+                                scope.resultImageData = resultImageObj.imageData;
+                            }
 
-                        updateAreaCoords(scope);
-                        scope.onChange({
-                            $dataURI: scope.resultImage,
-                            $imageData: scope.resultImageData
-                        });
+                            updateAreaCoords(scope);
+                            scope.onChange({
+                                $dataURI: scope.resultImage,
+                                $imageData: scope.resultImageData
+                            });
 
+
+                        }
                     }
                 };
 
                 var updateAreaCoords = function (scope) {
                     var areaCoords = cropHost.getAreaCoords();
                     scope.areaCoords = areaCoords;
-                }
+                };
 
                 // Wrapper to safely exec functions within $apply on a running $digest cycle
                 var fnSafeApply = function (fn) {
