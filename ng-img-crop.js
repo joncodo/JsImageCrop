@@ -1008,9 +1008,10 @@
                     };
 
 
-                    console.log(temp_canvas);
-                    console.log(ris);
-                    console.log(theArea.getSize());
+                    //console.log(temp_canvas);
+                    //console.log(ris);
+                    //console.log(theArea.getSize());
+                    retObj.size = theArea.getSize();
                     temp_ctx.drawImage(image,
                         (center.x - theArea.getSize().w / 2) * (image.width / ctx.canvas.width),
                         (center.y - theArea.getSize().h / 2) * (image.height / ctx.canvas.height),
@@ -1281,7 +1282,7 @@
 
                 var updateResultImage = function (scope) {
                     var resultImageObj = cropHost.getResultImage();
-                    if (resultImage) {
+                    if (resultImageObj) {
                         var resultImage = resultImageObj.dataURI;
                         if (storedResultImage !== resultImage) {
                             storedResultImage = resultImage;
@@ -1306,7 +1307,7 @@
                 var updateAreaCoords = function (scope) {
                     var areaCoords = cropHost.getAreaCoords();
                     scope.areaCoords = areaCoords;
-                }
+                };
 
                 // Wrapper to safely exec functions within $apply on a running $digest cycle
                 var fnSafeApply = function (fn) {
